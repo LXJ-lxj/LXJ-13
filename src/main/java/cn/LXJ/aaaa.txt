@@ -1,0 +1,6 @@
+public class xxx{
+private int id
+private String sex
+private String name
+private String address
+}
