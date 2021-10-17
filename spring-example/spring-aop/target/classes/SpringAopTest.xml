@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <aop:config>
+        <aop:aspect id="log" ref="logging"> <!--aspect 指定aop中要执行的bean-->
+            <aop:pointcut id="selectAll"
+                          expression="execution(* com.easy.*.*.*.*(..))"/><!-- pointcut-ref(指定增强功能的作用域)指定要在哪些对象上添加这些增强方法-->
+            <aop:before pointcut-ref="selectAll" method="beforeAdvice"/><!--before方法执行之前要干的事 方法名称是beforeAdvice-->
+            <aop:after pointcut-ref="selectAll" method="afterAdvice"/>
+            <aop:after-returning pointcut-ref="selectAll"
+                                 returning="retVal"
+                                 method="afterReturningAdvice"/> <!--after-returning写方法执行之后要打印的东西-->
+            <aop:after-throwing pointcut-ref="selectAll"
+                                throwing="ex"
+                                method="AfterThrowingAdvice"/>
+        </aop:aspect>
+    </aop:config>
+
+    <!-- Definition for student bean -->
+    <bean id="student" class="com.easy.archiecture.springaop.Student">
+        <property name="name" value="Zara"/>
+        <property name="age" value="11"/>
+    </bean>
+
+    <!-- Definition for logging aspect -->
+    <bean id="logging" class="com.easy.archiecture.springaop.Logging"/>
+</beans>
