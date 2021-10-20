@@ -1,0 +1,4 @@
+2021-02-25 03:40:29,864  org.Test.main(Test.java:11) debug  
+2021-02-25 03:40:29,865  org.Test.main(Test.java:12) info  
+2021-02-25 03:40:29,865  org.Test.main(Test.java:13) warn  
+2021-02-25 03:40:29,865  org.Test.main(Test.java:14) error  

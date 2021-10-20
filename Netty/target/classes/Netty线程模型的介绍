@@ -1,0 +1,7 @@
+目前存在的线程模型有：
+传统阻塞I/O服务模型
+Reactor
+根据Reactor的数量和处理资源池线程的数量不同，有三种典型的实现：
+单Reactor单线程
+单Reactor多线程
+主从Reactor多线程
