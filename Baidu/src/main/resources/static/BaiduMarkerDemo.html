@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>baidu地图</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        html{height:100%}
+        body{height:100%;margin:0px;padding:0px}
+        #container{height:100%}
+
+
+        /*---------------------*/
+        html, body, #allmap{
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+        #result{
+            padding: 7px 10px;
+            position: fixed;
+            top: 10px;
+            left: 20px;
+            width: 300px;
+            background: #fff;
+            box-shadow: 0 2px 6px 0 rgba(27, 142, 236, 0.5);
+            border-radius: 7px;
+            z-index: 99;
+        }
+        #cityName{
+            width:170px;
+            margin-right:10px;
+            height:25px;
+            border: 1px solid rgba(27, 142, 236, 0.5);
+            border-radius: 5px;
+        }
+        #result button{
+            border: 1px solid rgba(27, 142, 236, 0.5);
+            border-radius: 5px;
+            background: rgba(27, 142, 236, 0.5);
+            color: #fff
+        }
+    </style>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=1.0&&type=webgl&ak=ioPQ4NBLFIRYrODl0V7fOiTYCVsTKanF"></script>
+
+</head>
+<body>
+<div id="container"></div>
+<div id='result'>
+    城市名: <input id="cityName" type="text"/>
+    <button onclick="theLocation()"/>查询</button>
+</div>
+<script type="text/javascript">
+    var map = new BMapGL.Map("container");
+    var point = new BMapGL.Point(116.404, 39.915);
+    map.centerAndZoom(point, 15);
+    //缩放功能
+    map.enableScrollWheelZoom(true);
+    //添加标记点
+    var  marker=new BMapGL.Marker(point);
+    map.addOverlay(marker);
+
+    // 百度地图API功能
+    var map = new BMapGL.Map("allmap");
+    var point = new BMapGL.Point(116.331398,39.897445);
+    map.centerAndZoom(point,11);
+
+    function theLocation(){
+        var city = document.getElementById("cityName").value;
+        if(city != ""){
+            map.centerAndZoom(city,11);      // 用城市名设置地图中心点
+        }
+    }
+    //给地图添加点击事件
+    map.addEventListener("click",function(e){
+        //形参名称e地图点击事件的事件源
+        console.log(e.latlng.lng+","+e.latlng.lat);
+        var mk = new BMapGL.Marker(e.latlng);
+        //创建标记,r是定位结果,r.point就是当前定位的地点
+        mk.addEventListener("click",function(){
+            //给标记添加点击事件
+            console.log(this);
+            //this指代标记
+            // 由于标记属于地图对象map的子标签，所以当我们点击标记时，会出现冒泡，map的点击事件也会触发
+            // 可以使用事件源对象的stopPropagation函数组织后续的事件冒泡
+            event.stopPropagation(); }); map.addOverlay(mk);//将标记对象添加到地图上
+        var opts={
+            width:250,
+            height:100,
+            title:"hello"
+        }
+        var info="您点击了地图："+e.latlng.lng+"----"+e.latlng.lat;
+        var infoWindow=new BMapGL.InfoWindow(info,opts); //创建信息窗口对象
+        map.openInfoWindow(infoWindow,new BMapGL.Point(e.latlng.lng, e.latlng.lat)); //打开信息窗口
+         });
+    var scaleCtrl = new BMapGL.ScaleControl(); // 添加比例尺控件
+   map.addControl(scaleCtrl);
+   var zoomCtrl = new BMapGL.ZoomControl(); // 添加缩放控件
+    map.addControl(zoomCtrl);
+    var cityCtrl = new BMapGL.CityListControl(); // 添加城市列表控件
+    map.addControl(cityCtrl);
+    var locationControl = new BMapGL.LocationControl(); // 添加定位控件
+     map.addControl(locationControl);
+
+    //获取当前地理位置 将地图中心点移动到定位位置
+    var geolocation = new BMapGL.Geolocation();
+    //创建定位对象
+    geolocation.getCurrentPosition(function (r) {
+        //通过定位对象调用定位函数,回调函数形参r表示定位结果
+        if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+            //如果定位成功
+            var mk = new BMapGL.Marker(r.point);
+            //创建标记,r是定位结果,r.point就是当前定位的地点
+            map.addOverlay(mk);
+            //将标记对象添加到地图上
+             map.panTo(r.point);
+             //将地图中心店移动到定位地点
+            alert('您的位置：' + r.point.lng + ',' + r.point.lat);
+        } else { alert('failed' + this.getStatus()); }});
+
+    // GL版命名空间为BMapGL
+    // 按住鼠标右键，修改倾斜角和角度
+    var map = new BMapGL.Map("container");    // 创建Map实例
+    map.centerAndZoom(new BMapGL.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+    var navi3DCtrl = new BMapGL.NavigationControl3D();  // 添加3D控件
+    map.addControl(navi3DCtrl);
+</script>
+</body>
+</html>
