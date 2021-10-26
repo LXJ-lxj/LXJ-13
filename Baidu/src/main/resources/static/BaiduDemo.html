@@ -18,6 +18,23 @@
     var point = new BMapGL.Point(116.404, 39.915);
     map.centerAndZoom(point, 15);
     map.enableScrollWheelZoom(true);
+
+    //给地图添加点击事件
+    map.addEventListener("click",function(e){
+        point=new  BMapGL.Point(e.latlng.lng, e.latlng.lat)
+        //添加标记点
+        var  marker=new BMapGL.Marker(point);
+        map.clearOverlays();
+        map.addOverlay(marker);
+        var opts={
+            width:250,
+            height:100,
+            title:"hello"
+        }
+        var info="您点击了地图："+e.latlng.lng+"----"+e.latlng.lat;
+        var infoWindow=new BMapGL.InfoWindow(info,opts); //创建信息窗口对象
+        map.openInfoWindow(infoWindow,point); //打开信息窗口
+    });
 </script>
 
 </body>

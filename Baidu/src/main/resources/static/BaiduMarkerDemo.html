@@ -48,44 +48,20 @@
 </head>
 <body>
 <div id="container"></div>
-<div id='result'>
-    城市名: <input id="cityName" type="text"/>
-    <button onclick="theLocation()"/>查询</button>
-</div>
 <script type="text/javascript">
     var map = new BMapGL.Map("container");
     var point = new BMapGL.Point(116.404, 39.915);
     map.centerAndZoom(point, 15);
     //缩放功能
     map.enableScrollWheelZoom(true);
-    //添加标记点
-    var  marker=new BMapGL.Marker(point);
-    map.addOverlay(marker);
 
-    // 百度地图API功能
-    var map = new BMapGL.Map("allmap");
-    var point = new BMapGL.Point(116.331398,39.897445);
-    map.centerAndZoom(point,11);
 
-    function theLocation(){
-        var city = document.getElementById("cityName").value;
-        if(city != ""){
-            map.centerAndZoom(city,11);      // 用城市名设置地图中心点
-        }
-    }
     //给地图添加点击事件
     map.addEventListener("click",function(e){
-        //形参名称e地图点击事件的事件源
-        console.log(e.latlng.lng+","+e.latlng.lat);
-        var mk = new BMapGL.Marker(e.latlng);
-        //创建标记,r是定位结果,r.point就是当前定位的地点
-        mk.addEventListener("click",function(){
-            //给标记添加点击事件
-            console.log(this);
-            //this指代标记
-            // 由于标记属于地图对象map的子标签，所以当我们点击标记时，会出现冒泡，map的点击事件也会触发
-            // 可以使用事件源对象的stopPropagation函数组织后续的事件冒泡
-            event.stopPropagation(); }); map.addOverlay(mk);//将标记对象添加到地图上
+       point=new  BMapGL.Point(e.latlng.lng, e.latlng.lat)
+        //添加标记点
+        var  marker=new BMapGL.Marker(point);
+        map.addOverlay(marker);
         var opts={
             width:250,
             height:100,
@@ -93,7 +69,7 @@
         }
         var info="您点击了地图："+e.latlng.lng+"----"+e.latlng.lat;
         var infoWindow=new BMapGL.InfoWindow(info,opts); //创建信息窗口对象
-        map.openInfoWindow(infoWindow,new BMapGL.Point(e.latlng.lng, e.latlng.lat)); //打开信息窗口
+        map.openInfoWindow(infoWindow,); //打开信息窗口
          });
     var scaleCtrl = new BMapGL.ScaleControl(); // 添加比例尺控件
    map.addControl(scaleCtrl);
