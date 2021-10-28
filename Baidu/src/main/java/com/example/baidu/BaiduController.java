@@ -23,7 +23,7 @@ private RestTemplate restTemplate;
     public Object getAddrUserIP(HttpServletRequest request) throws Exception {
         String ip=request.getRemoteHost();
         System.out.println(ip);
-        ip="10.12.68.149";
+        ip="10.12.25.196";
         String url="https://api.map.baidu.com/location/ip?ak="+ak+"&ip="+ip+"&coor=bd09ll";
 
         //向百度地图发送请求
