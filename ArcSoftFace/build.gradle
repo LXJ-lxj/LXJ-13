@@ -1,0 +1,38 @@
+plugins {
+    id 'war'
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+repositories {
+   flatDir(dirs: 'lib')
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.11'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    compileOnly group: 'arcsoft-sdk-face-3.0.0.0',name:'arcsoft-sdk-face-3.0.0.0',version:'3.0.0.0'
+
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-parent', version: '2.2.5.RELEASE', ext: 'pom'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.5.2'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-freemarker', version: '2.5.4'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.17'
+    implementation group: 'cn.hutool', name: 'hutool-all', version: '4.6.1'
+    implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.59'
+
+    implementation group: 'org.apache.commons', name: 'commons-pool2', version: '2.9.0'
+    implementation group: 'com.google.guava', name: 'guava', version: '26.0-jre'
+
+}
+
+test {
+    useJUnitPlatform()
+}
