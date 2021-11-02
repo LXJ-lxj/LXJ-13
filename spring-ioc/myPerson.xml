@@ -1,0 +1,12 @@
+<com.序列化.Person-array>
+  <com.序列化.Person>
+    <userName>lxj</userName>
+    <password>root</password>
+    <age>24</age>
+  </com.序列化.Person>
+  <com.序列化.Person>
+    <userName>Tom</userName>
+    <password>2324</password>
+    <age>23</age>
+  </com.序列化.Person>
+</com.序列化.Person-array>

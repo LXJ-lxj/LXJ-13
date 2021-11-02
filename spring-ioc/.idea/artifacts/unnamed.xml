@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact name="unnamed">
+    <output-path>$USER_HOME$/桌面</output-path>
+    <root id="root">
+      <element id="directory" name="folder">
+        <element id="archive" name="archive.jar">
+          <element id="module-output" name="spring-ioc" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
