@@ -166,24 +166,7 @@ public class ESTest_Doc_Query {
 //        }
 
         // 8. 模糊查询
-//        SearchRequest request = new SearchRequest();
-//        request.indices("user");
 //
-//        SearchSourceBuilder builder = new SearchSourceBuilder();
-//        builder.query(QueryBuilders.fuzzyQuery("name", "wangwu").fuzziness(Fuzziness.TWO));
-//
-//        request.source(builder);
-//        SearchResponse response = esClient.search(request, RequestOptions.DEFAULT);
-//
-//        SearchHits hits = response.getHits();
-//
-//        System.out.println(hits.getTotalHits());
-//        System.out.println(response.getTook());
-//
-//        for ( SearchHit hit : hits ) {
-//            System.out.println(hit.getSourceAsString());
-//        }
-
 //        // 9. 高亮查询
 //        SearchRequest request = new SearchRequest();
 //        request.indices("user");
