@@ -1,0 +1,70 @@
+analysis: Lucene分析器的包  lucene-analyzers-common-8.7.0.jar
+core: Lucene核心包  lucene-core-8.7.0.jar
+queryparser: Lucene查询分析器的包  lucene-queryparser-8.7.0.jar
+highlighter:	Lucene高亮显示的包  lucene-highlighter-8.7.0.jar
+--------------------------------------------------------------------------------
+Lucene的基础类：
+Document
+Document 是用来描述文档的,文档是指要索引和搜索的内容。内容包括互联网上的网页、数据库中的数据、磁盘上的文件等。 一个 Document 对象由多个 Field 对象组成的。
+
+Field
+Field对象是用来描述一个文档的某个属性。
+
+Analyzer
+一个文档被索引之前，需要对文档内容进行分词处理，这时候就需要Analyzer。Analyzer 类是一个抽象类，有多个实现，Analyzer把分词后的内容交给 IndexWriter 来建立索引。
+
+IndexWriter
+IndexWriter是Lucene用来创建索引的一个核心的类，作用是把一个个的 Document 对象加到索引中来。
+
+Directory
+Directory代表Lucene的索引的存储的位置，是一个抽象类，它有两个实现，一个是 FSDirectory，表示一个存储在文件系统中的索引的位置。第二个是 RAMDirectory，表示一个存储在内存当中的索引的位置。
+--------------------------------------------------------------------------------
+IKAnalyzer分析器
+1、需引入IKAnalyzer分词的依赖包 IKAnalyzer-lucene.jar
+===============================================================================
+        <dependency>
+            <groupId>com.jianggujin</groupId>
+            <artifactId>IKAnalyzer-lucene</artifactId>
+            <version>8.0.0</version>
+        </dependency>
+===============================================================================
+2、添加扩展词典hotword.dic，对词整体不分词，可被搜索，注意： 文件的格式要为UTF-8。
+3、添加停用词词典ext_stopword.dic，对词整体停用不分词，不可被搜索，注意： 文件的格式要为UTF-8。
+4、添加IKAnalyzer.cfg.xml
+===============================================================================
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>IKAnalyzer扩展配置</comment>
+	<!--配置扩展字典 -->
+	<entry key="ext_dict">hotword.dic;</entry>
+
+	<!--配置停用词字典-->
+	<entry key="ext_stopwords">stopword.dic;</entry>
+</properties>
+===============================================================================
+--------------------------------------------------------------------------------
+Field域有如下属性：
+Analyzed是否分析：对域的内容进行分词处理。前提是要对域的内容进行查询。
+Indexed是否索引：将Field分析后的词或整个Field值进行索引，只有索引才可以搜索到。
+Stored是否存储：将Field值存储在文档中，存储在文档中的Field才可以从Document中获取。
+--------------------------------------------------------------------------------
+Query：
+通过项进行搜索 TermQuery类
+在指定的项范围内搜索 TermRangeQuery类
+通过字符串搜索 PrefixQuery类
+组合查询 BooleanQuery类
+    Occur：
+    Occur.SHOULD 或
+    Occur.MUST 且
+    Occur.MUST_NOT 且非
+    Occur.FILTER 同 MUST，但该字句不参与评分
+通过短语搜索 PhraseQuery类
+通配符查询 WildcardQuery类
+搜索类似项 FuzzyQuery类
+匹配所有文档 MatchAllDocsQuery类
+不匹配文档 MatchNoDocsQuery类
+解析查询表达式 QueryParser类
+多短语查询 MultiPhraseQuery类
+查询所有 MatchAllDocsQuery类
+不匹配所有文档 MatchNoDocsQuery类
