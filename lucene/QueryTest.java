@@ -13,15 +13,19 @@ import org.apache.lucene.search.spans.SpanQuery;
 import org.apache.lucene.search.spans.SpanTermQuery;
 import org.apache.lucene.store.FSDirectory;
 import org.wltea.analyzer.lucene.IKAnalyzer;
-
+import org.apache.lucene.queryparser.classic.QueryParser;
 import java.io.File;
-
 public class QueryTest {
+    public static void main(String[] args) throws Exception {
+        MultiFieldQueryParser();
+        booleanQuery();
+        phraseQuery();
+    }
     /**
      * 传统解析器-多默认字段
      */
-    public void MultiFieldQueryParser() throws Exception {
-        IndexReader indexReader = DirectoryReader.open(FSDirectory.open(new File("/opt/index").toPath()));
+    public static void MultiFieldQueryParser() throws Exception {
+        IndexReader indexReader = DirectoryReader.open(FSDirectory.open(new File("/home/lxj/文档/index").toPath()));
         IndexSearcher indexSearcher = new IndexSearcher(indexReader);
         String[] multiDefaultFields = {"bookname", "booktype", "bookcontent"};
         MultiFieldQueryParser multiFieldQueryParser = new MultiFieldQueryParser(multiDefaultFields, new IKAnalyzer());
@@ -42,9 +46,9 @@ public class QueryTest {
      * 布尔查询默认的最大字句数为1024，在将通配符查询这样的查询rewriter为布尔查询时，往往会产生很多的字句，可能抛出TooManyClauses 异常。
      * 可通过BooleanQuery.setMaxClauseCount(int)设置最大字句数。
      */
-    public void booleanQuery() throws Exception {
+    public static  void booleanQuery() throws Exception {
 // 创建一个indexsearcher对象
-        IndexReader indexReader = DirectoryReader.open(FSDirectory.open(new File("/opt/index").toPath()));
+        IndexReader indexReader = DirectoryReader.open(FSDirectory.open(new File("/home/lxj/文档/index").toPath()));
         IndexSearcher indexSearcher = new IndexSearcher(indexReader);
         BooleanQuery.Builder builder = new BooleanQuery.Builder();
 // 书内容
@@ -68,7 +72,7 @@ public class QueryTest {
      * 注意：所有加入的词项都匹配才算匹配（即使是你在同一位置加入多个词项）。如果需要在同一位置匹配多个同义词中的一个，适合用MultiPhraseQuery
      */
 
-    public void phraseQuery() throws Exception {
+    public static void phraseQuery() throws Exception {
         IndexReader indexReader = DirectoryReader.open(FSDirectory.open(new File("/home/lxj/文档/index").toPath()));
         IndexSearcher indexSearcher = new IndexSearcher(indexReader);
         PhraseQuery phraseQuery1 = new PhraseQuery("bookcontent", "资料", "版本");
@@ -197,7 +201,7 @@ public class QueryTest {
      * 简单地与索引词项进行相近匹配，允许最大2个不同字符。常用于拼写错误的容错：如把 “thinkpad” 拼成 “thinkppd”或 “thinkd”，使用FuzzyQuery 仍可搜索到正确的结果。
      */
 
-    public void fuzzyQuery() throws Exception {
+    public static void fuzzyQuery() throws Exception {
         IndexReader indexReader = DirectoryReader.open(FSDirectory.open(new File("/home/lxj/文档/index").toPath()));
         IndexSearcher indexSearcher = new IndexSearcher(indexReader);
         // FuzzyQuery 模糊查询
@@ -210,8 +214,8 @@ public class QueryTest {
     /**
      * 排序查询
      */
-    private void sortSearch(Query query) throws Exception {
-        IndexReader indexReader = DirectoryReader.open(FSDirectory.open(new File("/opt/index").toPath()));
+    private static void sortSearch(Query query) throws Exception {
+        IndexReader indexReader = DirectoryReader.open(FSDirectory.open(new File("/home/lxj/文档/index").toPath()));
         IndexSearcher indexSearcher = new IndexSearcher(indexReader);
             //true表示降序
             //SortField.Type.SCORE  资料相关度进行排序(默认)

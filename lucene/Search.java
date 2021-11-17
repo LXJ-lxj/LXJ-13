@@ -25,12 +25,13 @@ import java.util.Map;
 public class Search {
     public static void main(String[] args)throws Exception {
         search();
-//        standardAnalyzer();
+        //standardAnalyzer();
 //        ikAnalyzer();
 //        testTermQuery();
 //        testQueryParser();
-          testHighlighter();
+         // testHighlighter();
     }
+
     public static void search()throws Exception {
         //1、创建一个Director对象，指定索引库的位置
         Directory directory = FSDirectory.open(new File("/home/lxj/文档/index").toPath());
@@ -39,7 +40,7 @@ public class Search {
         //3、创建一个IndexSearcher对象，构造方法中的参数indexReader对象。
         IndexSearcher indexSearcher = new IndexSearcher(indexReader);
         //4、创建一个Query对象，TermQuery
-        Query query = new TermQuery(new Term("company", "2"));
+            Query query = new TermQuery(new Term("recruitmentrequirements", "百度"));
         //5、执行查询，得到一个TopDocs对象
         //参数1：查询对象 参数2：查询结果返回的最大记录数
         TopDocs topDocs = indexSearcher.search(query, 10);
@@ -66,6 +67,7 @@ public class Search {
     public static void standardAnalyzer() throws Exception {
         //1.创建一个Analyzer对象，StandardAnalyzer对象
         Analyzer analyzer = new StandardAnalyzer();
+
         //2.使用分析器对象的tokenStream方法获得一个TokenStream对象
         String text1="Please see:  Luke become an Apache Lucene module (as of Lucene 8.1)!";
         String text2="Lucene是apache软件基金会4 jakarta项目组的一个子项目，是一个开放源代码的全文检索引擎工具包，但它不是一个完整的全文检索引擎，" +
