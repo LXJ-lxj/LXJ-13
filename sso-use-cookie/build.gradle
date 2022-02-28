@@ -1,0 +1,45 @@
+//编译时用到的依赖
+buildscript {
+
+    repositories {
+        mavenLocal()
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${spring_boot_version}")
+    }
+}
+
+//project全局的版本及相关插件
+allprojects {
+    group 'com.example'
+    version '0.0.1-SNAPSHOT'
+    apply plugin: 'idea'
+}
+
+//子项目相关依赖和插件
+subprojects {
+    apply plugin: 'java'
+    // 指定JDK版本
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    // 指定编码格式
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven{ url 'https://maven.aliyun.com/repository/central'}
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        compile("org.springframework.boot:spring-boot-starter-parent:${spring_boot_version}")
+        compile("org.springframework.boot:spring-boot-starter:${spring_boot_version}")
+        compile("org.springframework.boot:spring-boot-starter-thymeleaf:${spring_boot_version}")
+        compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
+
+    }
+}
