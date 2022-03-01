@@ -11,15 +11,14 @@ import org.thymeleaf.util.StringUtils;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequestMapping("/login")
 public class LoginController {
     private static Set<User>dbUser;
     static {
+        dbUser = new HashSet<>();
         dbUser.add(new User(0,"zhangsan","12345"));
         dbUser.add(new User(1,"lisi","123456"));
         dbUser.add(new User(2,"wangwu","1234567"));
