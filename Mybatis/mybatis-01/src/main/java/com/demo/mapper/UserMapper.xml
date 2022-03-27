@@ -29,4 +29,10 @@
     <delete id="deleteUser" parameterType="int">
         delete from aaa.name where id=#{id};
     </delete>
+
+
+<!--    模糊查询-->
+    <select id="getUserLike" resultType="com.demo.pojo.User">
+        select *from aaa.name where name  like "%"#{value}"%"
+    </select>
 </mapper>
