@@ -4,16 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--namespace  绑定一个对应的Dao/Mapper接口-->
 <!--namespace中的报名要和DAO/Mapper接口中的包名一致-->
-<mapper namespace="com.demo.mapper.UserMapper">
-    <select id="getUserList" resultType="com.demo.pojo.User"> /*resultType  结果集*/
+<mapper namespace="cn.sum.mapper.UserMapper">
+    <select id="getUserList" resultType="User"> /*resultType  结果集*/
         select *from aaa.name
     </select>
-    <select id="getUserById" parameterType="int" resultType="com.demo.pojo.User">
+    <select id="getUserById" parameterType="int" resultType="User">
         select *
         from aaa.name where id=#{id};
     </select><!--parameterType 表示传入的参数类型-->
 <!--对象中的属性可以直接取出来-->
-    <insert id="addUser" parameterType="com.demo.pojo.User">
+    <insert id="addUser" parameterType="cn.sum.pojo.User">
         insert into aaa.name(id,name ,pwd)values(#{id},#{name},#{pwd});
     </insert>
 
@@ -21,7 +21,7 @@
         insert into aaa.name(id,name ,pwd)values(#{userid},#{username},#{password});
     </insert>
 
-    <update id="update" parameterType="com.demo.pojo.User">
+    <update id="update" parameterType="cn.sum.pojo.User">
         update aaa.name
         set name = #{name},pwd=#{pwd}
         where id=#{id};
@@ -32,7 +32,7 @@
 
 
 <!--    模糊查询-->
-    <select id="getUserLike" resultType="com.demo.pojo.User">
+    <select id="getUserLike" resultType="cn.sum.pojo.User">
         select *from aaa.name where name  like "%"#{value}"%"
 /* 也可以使用这个  select *from aaa.name where name  like #{value}*/
     </select>

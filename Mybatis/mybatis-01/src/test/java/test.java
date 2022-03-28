@@ -95,6 +95,7 @@ public class test {
 
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         List<User> userList = mapper.getUserLike("李");
+        /*也可以使用这个 List<User> userList = mapper.getUserLike("%李%");*/
         for (User user : userList) {
             System.out.println(user);
         }

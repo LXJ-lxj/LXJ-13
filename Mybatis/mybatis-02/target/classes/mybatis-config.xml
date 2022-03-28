@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!--引入外部配置文件 替换了environments中手写的value属性-->
+    <properties resource="db.properties">
+       <!-- 这里配置也是可以使用的，但是他优先使用的是外部配置文件
+       <property name="username" value="root"/>
+        <property name="pwd" value="lxjroot"/>-->
+
+    </properties>
+<typeAliases>
+    <typeAlias alias="User" type="cn.sum.pojo.User"></typeAlias>
+   <!-- 或者使用包名 <package name="cn.sum.pojo"/>-->
+</typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+
+    </environments>
+
+
+<!--    每个Mapper.xml都需要在mybatis核心配置文件中注册！！！-->
+    <mappers>
+        <mapper resource="cn/sum/mapper/UserMapper.xml"/>
+    </mappers>
+</configuration>
